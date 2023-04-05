@@ -5,6 +5,7 @@ import { TodoListComponent } from './todo-list.component';
 import { ListContainerComponent } from './list-container/list-container.component';
 import { TodoItemComponent } from './todo-item/todo-item.component';
 import { TodoListFilterComponent } from './todo-list-filter/todo-list-filter.component';
+import { TodoListStore } from './todo-list.store';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import { TodoListFilterComponent } from './todo-list-filter/todo-list-filter.com
     TodoItemComponent,
     TodoListFilterComponent,
   ],
+  providers: [TodoListStore],
   imports: [CommonModule, ReactiveFormsModule],
   exports: [TodoListComponent],
 })

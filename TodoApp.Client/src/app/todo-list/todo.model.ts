@@ -6,4 +6,5 @@ export interface Todo {
   dueAt?: Date;
   completedAt?: Date;
   isCompleted: boolean;
+  priority: 'minor' | 'normal' | 'major';
 }

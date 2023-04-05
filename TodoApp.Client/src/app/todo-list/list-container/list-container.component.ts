@@ -1,4 +1,5 @@
 import { Component, Input, TemplateRef } from '@angular/core';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-list-container',
@@ -7,7 +8,7 @@ import { Component, Input, TemplateRef } from '@angular/core';
 })
 export class ListContainerComponent<T> {
   @Input()
-  items: T[] = [];
+  public items: T[] = [];
   @Input()
-  itemTemplate!: TemplateRef<unknown>;
+  public itemTemplate!: TemplateRef<unknown>;
 }

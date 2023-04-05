@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { dummyTodos } from './dummy-todos';
 import { Todo } from './todo.model';
 import { TodoFilter } from './todo-list-filter/todo-list-filter.component';
+import { TodoListStore } from './todo-list.store';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-todo-list',
@@ -9,18 +10,19 @@ import { TodoFilter } from './todo-list-filter/todo-list-filter.component';
   styleUrls: ['./todo-list.component.scss'],
 })
 export class TodoListComponent {
-  public dummyTodos = dummyTodos;
+  public todos$: Observable<Todo[]> = this.todoListStore.filteredTodos$;
 
-  public deleteTodo($event: number) {
-    console.log($event);
+  constructor(private todoListStore: TodoListStore) {}
+
+  public deleteTodo(id: number) {
+    this.todoListStore.deleteTodo(of(id));
   }
 
-  public updateTodo($event: Todo) {
-    console.log($event);
+  public updateTodo(todo: Todo) {
+    this.todoListStore.updateTodo(of(todo));
   }
 
   filterChanged($event: TodoFilter) {
-    console.log('filterChanged');
-    console.log($event);
+    this.todoListStore.patchState({ filter: $event });
   }
 }

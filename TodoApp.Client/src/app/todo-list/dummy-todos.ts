@@ -8,6 +8,7 @@ export const dummyTodos: Todo[] = [
     createdAt: new Date('2022-03-01T10:00:00Z'),
     dueAt: new Date('2022-03-10T10:00:00Z'),
     isCompleted: false,
+    priority: 'normal',
   },
   {
     id: 2,
@@ -16,6 +17,7 @@ export const dummyTodos: Todo[] = [
     createdAt: new Date('2022-03-02T15:00:00Z'),
     dueAt: new Date('2022-03-04T10:00:00Z'),
     isCompleted: false,
+    priority: 'minor',
   },
   {
     id: 3,
@@ -25,6 +27,7 @@ export const dummyTodos: Todo[] = [
     dueAt: new Date('2022-03-06T18:00:00Z'),
     completedAt: new Date('2022-03-06T12:00:00Z'),
     isCompleted: true,
+    priority: 'major',
   },
   {
     id: 4,
@@ -33,6 +36,7 @@ export const dummyTodos: Todo[] = [
     createdAt: new Date('2022-03-07T09:00:00Z'),
     dueAt: new Date('2022-03-10T09:00:00Z'),
     isCompleted: false,
+    priority: 'normal',
   },
   {
     id: 5,
@@ -41,6 +45,7 @@ export const dummyTodos: Todo[] = [
     createdAt: new Date('2022-03-08T16:00:00Z'),
     dueAt: new Date('2022-03-11T16:00:00Z'),
     isCompleted: false,
+    priority: 'minor',
   },
   {
     id: 6,
@@ -50,6 +55,7 @@ export const dummyTodos: Todo[] = [
     dueAt: new Date('2022-03-09T17:00:00Z'),
     completedAt: new Date('2022-03-09T13:00:00Z'),
     isCompleted: true,
+    priority: 'major',
   },
   {
     id: 7,
@@ -58,6 +64,7 @@ export const dummyTodos: Todo[] = [
     createdAt: new Date('2022-03-12T09:00:00Z'),
     dueAt: new Date('2022-03-15T09:00:00Z'),
     isCompleted: false,
+    priority: 'normal',
   },
   {
     id: 8,
@@ -67,5 +74,6 @@ export const dummyTodos: Todo[] = [
     dueAt: new Date('2022-03-14T08:00:00Z'),
     completedAt: new Date('2022-03-14T07:30:00Z'),
     isCompleted: true,
+    priority: 'minor',
   },
 ];

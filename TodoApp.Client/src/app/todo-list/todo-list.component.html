@@ -1,9 +1,8 @@
 <app-todo-list-filter
   (filtersChanged)="filterChanged($event)"
 ></app-todo-list-filter>
-
 <app-list-container
-  [items]="dummyTodos"
+  [items]="(todos$ | async) ?? []"
   [itemTemplate]="todoItemTemplate"
 ></app-list-container>
 
