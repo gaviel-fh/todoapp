@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { dummyTodos } from './dummy-todos';
 import { Todo } from './todo.model';
+import { TodoFilter } from './todo-list-filter/todo-list-filter.component';
 
 @Component({
   selector: 'app-todo-list',
@@ -15,6 +16,11 @@ export class TodoListComponent {
   }
 
   public updateTodo($event: Todo) {
+    console.log($event);
+  }
+
+  filterChanged($event: TodoFilter) {
+    console.log('filterChanged');
     console.log($event);
   }
 }

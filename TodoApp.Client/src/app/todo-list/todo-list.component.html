@@ -1,3 +1,7 @@
+<app-todo-list-filter
+  (filtersChanged)="filterChanged($event)"
+></app-todo-list-filter>
+
 <app-list-container
   [items]="dummyTodos"
   [itemTemplate]="todoItemTemplate"

@@ -1,0 +1,35 @@
+<form [formGroup]="filterForm" class="filter-container">
+  <label>
+    Title:
+    <input type="text" formControlName="title" />
+  </label>
+
+  <label>
+    Due At:
+    <input type="date" formControlName="dueAt" />
+  </label>
+
+  <label>
+    Created At:
+    <input type="date" formControlName="createdAt" />
+  </label>
+
+  <label>
+    Is Completed:
+    <select formControlName="isCompleted">
+      <option value="">All</option>
+      <option value="true">Yes</option>
+      <option value="false">No</option>
+    </select>
+  </label>
+
+  <label>
+    Priority:
+    <select formControlName="priority">
+      <option value="">All</option>
+      <option value="minor">Minor</option>
+      <option value="normal">Normal</option>
+      <option value="major">Major</option>
+    </select>
+  </label>
+</form>
