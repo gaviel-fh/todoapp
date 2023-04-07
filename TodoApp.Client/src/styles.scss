@@ -1,1 +1,9 @@
-/* You can add global styles to this file, and also import other style files */
+@import "~@angular/cdk/overlay-prebuilt.css";
+
+.cdk-overlay-container {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+// .custom-overlay-pane {
+//   width: fit-content;
+// }

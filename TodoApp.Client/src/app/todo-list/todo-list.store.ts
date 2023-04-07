@@ -124,7 +124,7 @@ export class TodoListStore extends ComponentStore<TodoListState> {
       if (filter.priority) {
         priorityMatch = todo.priority === filter.priority;
       }
-
+      console.log(todos);
       return (
         titleMatch &&
         dueAtMatch &&
