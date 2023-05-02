@@ -21,15 +21,12 @@ pipeline{
             steps {
                 withSonarQubeEnv('sonarqube-api') {
                     script {
-                        def dotnetImage = 'mcr.microsoft.com/dotnet/sdk:7.0'
+                        def customDotnetImage = 'dotnet-sdk-sonarscanner'
 
                         def solutionPath = 'TodoApp.Api/TodoApp.sln'
                         def projectKey = 'TodoApp.Api'
 
-                        docker.image(dotnetImage).inside {
-                            sh "dotnet tool install --global dotnet-sonarscanner"
-                            sh 'export PATH=$PATH:/root/.dotnet/tools'
-
+                        docker.image(customDotnetImage).inside {
                             sh "dotnet sonarscanner begin /k:\"${projectKey}\" /d:sonar.login=\"${env.SONAR_AUTH_TOKEN}\""
                             sh "dotnet build ${solutionPath}"
                             sh "dotnet sonarscanner end /d:sonar.login=\"${env.SONAR_AUTH_TOKEN}\""

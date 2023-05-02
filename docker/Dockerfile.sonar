@@ -1,0 +1,5 @@
+# Dockerfile for custom .NET image with SonarScanner
+FROM mcr.microsoft.com/dotnet/sdk:7.0
+
+# Install dotnet-sonarscanner tool
+RUN dotnet tool install --global dotnet-sonarscanner --version 5.13.0
