@@ -3,3 +3,11 @@ FROM mcr.microsoft.com/dotnet/sdk:7.0
 
 # Install dotnet-sonarscanner tool
 RUN dotnet tool install --global dotnet-sonarscanner --version 5.13.0
+
+WORKDIR /src
+
+# Copy projects
+COPY ../TodoApp.Api/ TodoApp.Api/
+
+# Create a symlink to make the tool available in the PATH
+RUN ln -s /root/.dotnet/tools/dotnet-sonarscanner /usr/local/bin/dotnet-sonarscanner

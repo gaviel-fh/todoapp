@@ -19,17 +19,17 @@ pipeline{
 
         stage('Static Code Analysis') {
             steps {
+                def scannerHome = tool 'SonarScanner for MSBuild'
+                def customDotnetImage = 'dotnet-sdk-sonarscanner'
+                def solutionPath = 'TodoApp.Api/TodoApp.sln'
+                def projectKey = 'TodoApp.Api'
+
                 withSonarQubeEnv('sonarqube-api') {
                     script {
-                        def customDotnetImage = 'dotnet-sdk-sonarscanner'
-
-                        def solutionPath = 'TodoApp.Api/TodoApp.sln'
-                        def projectKey = 'TodoApp.Api'
-
                         docker.image(customDotnetImage).inside {
-                            sh "dotnet sonarscanner begin /k:\"${projectKey}\" /d:sonar.login=\"${env.SONAR_AUTH_TOKEN}\""
+                            sh "dotnet ${scannerHome}/SonarScanner.MSBuild.dll begin /k:\"TodoApp\""
                             sh "dotnet build ${solutionPath}"
-                            sh "dotnet sonarscanner end /d:sonar.login=\"${env.SONAR_AUTH_TOKEN}\""
+                            sh "dotnet ${scannerHome}/SonarScanner.MSBuild.dll end"
                         }
                     }
                 }
