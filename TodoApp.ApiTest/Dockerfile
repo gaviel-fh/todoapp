@@ -16,5 +16,5 @@ COPY TodoApp.ApiTest/ ./TodoApp.ApiTest/
 
 WORKDIR "/src/TodoApp.ApiTest"
 
-# Run tests
+# Run tests 
 RUN dotnet test --no-restore -c Release
