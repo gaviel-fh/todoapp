@@ -21,5 +21,11 @@ namespace TodoApp.ApiTest
 
             return context;
         }
+
+        public static void ClearContext(DataContext context)
+        {
+            context.TodoItems.RemoveRange(context.TodoItems);
+            context.SaveChanges();
+        }
     }
 }
