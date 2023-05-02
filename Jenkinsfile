@@ -15,7 +15,9 @@ pipeline{
 
         stage("Unit Test .Net Backend"){
             steps{
-                dotnetBuildAndTest('TodoApp.Api', 'TodoApp.ApiTest')
+                script{
+                    sh "docker build -f TodoApi.ApiTest/Dockerfile -t todoapp-apitest ."
+                }
             }
         }
     }
