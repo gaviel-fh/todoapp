@@ -30,8 +30,7 @@ pipeline{
 
         stage('Static Code Analysis') {
             steps {
-                def staticCodeAnalysis = load 'cicd/staticCodeAnalysis.groovy'
-                staticCodeAnalysis('dotnet-sdk-sonarscanner', 'TodoApp.Api', 'TodoApp')
+                cicd.staticCodeAnalysis('dotnet-sdk-sonarscanner', 'TodoApp.Api', 'TodoApp')
             }
         }
     }
