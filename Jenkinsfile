@@ -57,29 +57,29 @@ pipeline{
 
         stage('Build and Push Docker Images') {
             steps {
+                script {
+                    def apiProjectName = 'TodoApp.Api'
+                    def apiDockerfilePath = 'TodoApp.Api/Dockerfile'
+                    def clientProjectName = 'TodoApp.Client'
+                    def clientDockerfilePath = 'TodoApp.Client/Dockerfile'
+                    def majorVersion = 0
+                    def minorVersion = 0
+                    def patchVersion = env.BUILD_NUMBER
+                    def versionTag = "${majorVersion}.${minorVersion}.${patchVersion}"
+                }
+                
                 withCredentials([usernamePassword(
                     credentialsId: 'Dockerhub-Credentials', 
                     usernameVariable: 'DOCKER_HUB_USERNAME', 
                     passwordVariable: 'DOCKER_HUB_PASSWORD')
                     ]) {
-                    
-                    script {
-                        def apiProjectName = 'TodoApp.Api'
-                        def apiDockerfilePath = 'TodoApp.Api/Dockerfile'
-                        def clientProjectName = 'TodoApp.Client'
-                        def clientDockerfilePath = 'TodoApp.Client/Dockerfile'
-                        def majorVersion = 0
-                        def minorVersion = 0
-                        def patchVersion = env.BUILD_NUMBER
-                        def versionTag = "${majorVersion}.${minorVersion}.${patchVersion}"
-                    }
-
+                        
                     script {
                         // Build and tag API project
                         sh "docker build -t ${DOCKER_HUB_USERNAME}/${apiProjectName}:${versionTag} -f ${apiDockerfilePath} ."
 
                         // Build and tag Client project
-                        sh "docker build -t ${dockerHubUser}/${clientProjectName}:${versionTag} -f ${clientDockerfilePath} ."
+                        sh "docker build -t ${DOCKER_HUB_USERNAME}/${clientProjectName}:${versionTag} -f ${clientDockerfilePath} ."
                     }
 
                     script {
@@ -87,10 +87,10 @@ pipeline{
                         sh "docker login -u ${DOCKER_HUB_USERNAME} -p ${DOCKER_HUB_PASSWORD}"
 
                         // Push API project
-                        sh "docker push ${dockerHubUser}/${apiProjectName}:${versionTag}"
+                        sh "docker push ${DOCKER_HUB_USERNAME}/${apiProjectName}:${versionTag}"
 
                         // Push Client project
-                        sh "docker push ${dockerHubUser}/${clientProjectName}:${versionTag}"
+                        sh "docker push ${DOCKER_HUB_USERNAME}/${clientProjectName}:${versionTag}"
                     }
                 }
             }
