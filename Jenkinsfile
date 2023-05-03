@@ -1,3 +1,5 @@
+@Library('cicd') _
+
 pipeline{
     agent any
 
@@ -19,20 +21,7 @@ pipeline{
 
         stage('Static Code Analysis') {
             steps {
-                withSonarQubeEnv('sonarqube-api') {
-                    script {
-                        // def scannerHome = tool 'SonarScanner for MSBuild'
-                        def customDotnetImage = 'dotnet-sdk-sonarscanner'
-                        def solutionPath = 'TodoApp.Api'
-                        def projectKey = 'TodoApp'
-
-                        docker.image(customDotnetImage).inside("-v ${WORKSPACE}/${solutionPath}:/src") {
-                            sh "dotnet sonarscanner begin /k:\"${projectKey}\" /d:sonar.login=\"${env.SONAR_AUTH_TOKEN}\""
-                            sh "dotnet build ${solutionPath}"
-                            sh "dotnet sonarscanner end /d:sonar.login=\"${env.SONAR_AUTH_TOKEN}\""
-                        }
-                    }
-                }
+                staticCodeAnalysis('dotnet-sdk-sonarscanner', 'TodoApp.Api', 'TodoApp')
             }
         }
     }
