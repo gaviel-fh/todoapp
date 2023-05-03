@@ -1,13 +1,15 @@
-# Dockerfile for custom .NET image with SonarScanner
+# Use the official .NET SDK image as the base image
 FROM mcr.microsoft.com/dotnet/sdk:7.0
 
-# Install dotnet-sonarscanner tool
-RUN dotnet tool install --global dotnet-sonarscanner --version 5.13.0
+# Install OpenJDK 11
+RUN apt-get update && \
+    apt-get install -y openjdk-11-jdk && \
+    apt-get clean
 
-WORKDIR /src
+# Install dotnet-sonarscanner
+RUN dotnet tool install --global dotnet-sonarscanner
 
-# Copy projects
-COPY ../TodoApp.Api/ TodoApp.Api/
+# Add .NET global tools to PATH
+ENV PATH="${PATH}:/root/.dotnet/tools"
 
-# Create a symlink to make the tool available in the PATH
-RUN ln -s /root/.dotnet/tools/dotnet-sonarscanner /usr/local/bin/dotnet-sonarscanner
+# docker build -f .\docker\Dockerfile.sonar -t dotnet-sdk-sonarscanner .
