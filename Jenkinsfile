@@ -65,8 +65,6 @@ pipeline{
                 apiDockerfilePath = 'TodoApp.Api/Dockerfile'
                 clientProjectName = 'todoapp.client'
                 clientDockerfilePath = 'TodoApp.Client/Dockerfile'
-
-                
             }
             
             steps {
@@ -78,10 +76,16 @@ pipeline{
                         
                     script {
                         // Build and tag API project
-                        sh "docker build -t ${DOCKER_HUB_USERNAME}/${apiProjectName}:${versionTag} -f ${apiDockerfilePath} ."
+                        sh "docker build -t ${DOCKER_HUB_USERNAME}/${apiProjectName} -f ${apiDockerfilePath} ."
+
+                        sh "docker image tag ${DOCKER_HUB_USERNAME}/${apiProjectName} ${DOCKER_HUB_USERNAME}/${apiProjectName}:${versionTag}"
+                        sh "docker image tag ${DOCKER_HUB_USERNAME}/${apiProjectName} ${DOCKER_HUB_USERNAME}/${apiProjectName}:latest"
 
                         // Build and tag Client project
-                        sh "docker build -t ${DOCKER_HUB_USERNAME}/${clientProjectName}:${versionTag} -f ${clientDockerfilePath} ."
+                        sh "docker build -t ${DOCKER_HUB_USERNAME}/${clientProjectName} -f ${clientDockerfilePath} ."
+                        
+                        sh "docker image tag ${DOCKER_HUB_USERNAME}/${clientProjectName} ${DOCKER_HUB_USERNAME}/${clientProjectName}:${versionTag}"
+                        sh "docker image tag ${DOCKER_HUB_USERNAME}/${clientProjectName} ${DOCKER_HUB_USERNAME}/${clientProjectName}:latest"
                     }
 
                     script {
@@ -90,9 +94,11 @@ pipeline{
 
                         // Push API project
                         sh "docker push ${DOCKER_HUB_USERNAME}/${apiProjectName}:${versionTag}"
+                        sh "docker push ${DOCKER_HUB_USERNAME}/${apiProjectName}:latest"
 
                         // Push Client project
                         sh "docker push ${DOCKER_HUB_USERNAME}/${clientProjectName}:${versionTag}"
+                        sh "docker push ${DOCKER_HUB_USERNAME}/${clientProjectName}:latest"
                     }
                 }
             }

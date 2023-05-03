@@ -7,12 +7,12 @@ COPY TodoApp.Client/package.json TodoApp.Client/package-lock.json ./
 RUN npm ci
 
 COPY TodoApp.Client/ ./
-RUN npm run build -- --prod
+RUN npm run build -- --configuration=production
 
 # Stage 2: Deploy to production with Nginx
 FROM nginx:1.23
 
-COPY --from=build /app/dist/your-angular-project /usr/share/nginx/html
+COPY --from=build /app/dist//todo-app.client /usr/share/nginx/html
 
 # Copy custom Nginx configuration (optional)
 # COPY nginx.conf /etc/nginx/conf.d/default.conf
