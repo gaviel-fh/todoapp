@@ -9,3 +9,4 @@ def call(String customDotnetImage, String solutionPath, String projectKey) {
         }
     }
 }
+return this
