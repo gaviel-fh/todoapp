@@ -1,12 +1,3 @@
-def apiProjectName = 'TodoApp.Api'
-def apiDockerfilePath = 'TodoApp.Api/Dockerfile'
-def clientProjectName = 'TodoApp.Client'
-def clientDockerfilePath = 'TodoApp.Client/Dockerfile'
-def majorVersion = 0
-def minorVersion = 0
-def patchVersion = env.BUILD_NUMBER
-def versionTag = "${majorVersion}.${minorVersion}.${patchVersion}"
-
 pipeline{
     agent any
 
@@ -64,6 +55,15 @@ pipeline{
         // }
 
         stage('Build and Push Docker Images') {
+            def apiProjectName = 'todoapp.api'
+            def apiDockerfilePath = 'TodoApp.Api/Dockerfile'
+            def clientProjectName = 'todoapp.client'
+            def clientDockerfilePath = 'TodoApp.Client/Dockerfile'
+            def majorVersion = 0
+            def minorVersion = 0
+            def patchVersion = env.BUILD_NUMBER
+            def versionTag = "${majorVersion}.${minorVersion}.${patchVersion}"
+
             steps {
                 withCredentials([usernamePassword(
                     credentialsId: 'Dockerhub-Credentials', 
