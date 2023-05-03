@@ -9,6 +9,13 @@ RUN apt-get update && \
 # Install dotnet-sonarscanner
 RUN dotnet tool install --global dotnet-sonarscanner
 
+# Install Node.js and npm
+RUN curl -sL https://deb.nodesource.com/setup_18.x | bash -
+RUN apt-get install -y nodejs
+
+# Install SonarQube Scanner for JavaScript
+RUN npm install -g sonarqube-scanner
+
 # Add .NET global tools to PATH
 ENV PATH="${PATH}:/root/.dotnet/tools"
 
