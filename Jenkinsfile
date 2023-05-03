@@ -1,5 +1,3 @@
-def cicd
-
 pipeline{
     agent any
 
@@ -7,7 +5,6 @@ pipeline{
         stage("Setup") {
             steps {
                 script {
-                    cicd = load 'cicd/Cicd.groovy'
                     deleteDir()
                 }
             }
@@ -31,7 +28,8 @@ pipeline{
         stage('Static Code Analysis') {
             steps {
                 script {
-                    cicd.staticCodeAnalysis('dotnet-sdk-sonarscanner', 'TodoApp.Api', 'TodoApp')
+                    def staticCodeAnalysis = load './cicd/staticCodeAnalysis.groovy'
+                    staticCodeAnalysis('dotnet-sdk-sonarscanner', 'TodoApp.Api', 'TodoApp')
                 }
             }
         }
