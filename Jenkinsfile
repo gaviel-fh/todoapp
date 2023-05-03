@@ -2,14 +2,6 @@ pipeline{
     agent any
 
     stages{
-        stage("Setup") {
-            steps {
-                script {
-                    deleteDir()
-                }
-            }
-        }
-
         stage("Git Checkout"){
             steps{
                 checkout scm
@@ -27,9 +19,18 @@ pipeline{
 
         stage('Static Code Analysis') {
             steps {
-                script {
-                    def staticCodeAnalysis = load './cicd/staticCodeAnalysis.groovy'
-                    staticCodeAnalysis('dotnet-sdk-sonarscanner', 'TodoApp.Api', 'TodoApp')
+                withSonarQubeEnv('sonarqube-api') {
+                    script {
+                        def customDotnetImage = 'dotnet-sdk-sonarscanner'
+                        def solutionPath = 'TodoApp.Api'
+                        def projectKey = 'TodoApp'
+
+                        docker.image(customDotnetImage).inside("-v ${WORKSPACE}/${solutionPath}:/src") {
+                            sh "dotnet sonarscanner begin /k:${projectKey} /d:sonar.login=${env.SONAR_AUTH_TOKEN}"
+                            sh "dotnet build ${solutionPath}"
+                            sh "dotnet sonarscanner end /d:sonar.login=${env.SONAR_AUTH_TOKEN}"
+                        }
+                    }
                 }
             }
         }
