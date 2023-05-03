@@ -21,13 +21,13 @@ pipeline{
             steps {
                 withSonarQubeEnv('sonarqube-api') {
                     script {
-                        def staticCodeAnalysisImage = 'static-code-analysis'
+                        def customDotnetImage = 'static-code-analysis'
                         def solutionPath = 'TodoApp.Api'
                         def projectKey = 'TodoApp.Api'
 
-                        docker.image(staticCodeAnalysisImage).inside("-v ${WORKSPACE}/${solutionPath}:/src") {
+                        docker.image(customDotnetImage).inside("-v ${WORKSPACE}/${solutionPath}:/src") {
                             sh "dotnet sonarscanner begin /k:${projectKey} /d:sonar.login=${env.SONAR_AUTH_TOKEN}"
-                            // sh "dotnet build ${solutionPath}"
+                            sh "dotnet build ${solutionPath}"
                             sh "dotnet sonarscanner end /d:sonar.login=${env.SONAR_AUTH_TOKEN}"
                         }
                     }
@@ -45,6 +45,7 @@ pipeline{
 
                         docker.image(staticCodeAnalysisImage).inside("-v ${WORKSPACE}/${angularPath}:/app") {
                             dir(angularPath) {
+                                sh "npm ci"
                                 sh "sonar-scanner -Dsonar.projectKey=${projectKey} -Dsonar.sources=src -Dsonar.login=${env.SONAR_AUTH_TOKEN}"
                             }
                         }

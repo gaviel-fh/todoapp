@@ -19,4 +19,4 @@ RUN npm install -g sonarqube-scanner
 # Add .NET global tools to PATH
 ENV PATH="${PATH}:/root/.dotnet/tools"
 
-# docker build -f .\docker\Dockerfile.sonar -t dotnet-sdk-sonarscanner .
+# docker build -f .\docker\Dockerfile.sonar -t static-code-analysis .
