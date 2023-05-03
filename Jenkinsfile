@@ -30,7 +30,9 @@ pipeline{
 
         stage('Static Code Analysis') {
             steps {
-                cicd.staticCodeAnalysis('dotnet-sdk-sonarscanner', 'TodoApp.Api', 'TodoApp')
+                script {
+                    cicd.staticCodeAnalysis('dotnet-sdk-sonarscanner', 'TodoApp.Api', 'TodoApp')
+                }
             }
         }
     }
