@@ -1,3 +1,8 @@
+def majorVersion = 0
+def minorVersion = 0
+def patchVersion = env.BUILD_NUMBER
+def versionTag = "${majorVersion}.${minorVersion}.${patchVersion}"
+
 pipeline{
     agent any
 
@@ -60,11 +65,8 @@ pipeline{
                 apiDockerfilePath = 'TodoApp.Api/Dockerfile'
                 clientProjectName = 'todoapp.client'
                 clientDockerfilePath = 'TodoApp.Client/Dockerfile'
+
                 
-                majorVersion = 0
-                minorVersion = 0
-                patchVersion = env.BUILD_NUMBER
-                versionTag = "${majorVersion}.${minorVersion}.${patchVersion}"
             }
             
             steps {
